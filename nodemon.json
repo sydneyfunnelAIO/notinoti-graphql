@@ -1,0 +1,5 @@
+{
+    "env":{
+        "MONGODB_URI":"mongodb+srv://sydney:3t4OPD96q@cluster0.34gtx.mongodb.net/notinoti?retryWrites=true&w=majority"
+    }
+}

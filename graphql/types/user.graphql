@@ -1,0 +1,64 @@
+scalar JSON
+
+type Query {
+  user(userId: String!): User!
+  users:[User!]!
+  Twitch(channelId:String!):Twitch!
+  Twitter(id:ID!):Twitter!
+  Youtube(channelId:String!):Youtube!
+  test(userId:String!):String!
+}
+
+
+
+type Mutation {
+  registerUser(data: registerUserInput!): User
+  deleteTwitch(data: TwitchInput!): Response
+  addTwitch(data:TwitchInput!): Response
+  deleteYoutube(data: TwitchInput!): Response
+  addYoutube(data:TwitchInput!): Response
+  deleteTwitter(data: TwitchInput!): Response
+  addTwitter(data:TwitchInput!): Response
+  testMutation(data:String!):Response
+  
+
+}
+
+type User {
+    userId:String!
+    Twitter:[Twitter!]
+    Youtube:[Youtube!]
+    Twitch:[Twitch!]
+}
+type Response{
+    message:String
+    status:Int
+}
+input registerUserInput {
+    userId:String!
+}
+input TwitchInput{
+    userId:String!
+    channelName:String!
+}
+type Twitch {
+    Users:[String!]
+    channelId:String!
+    channelName:String!
+    type:String
+    ChannelPic:String!
+    reachedMessages:[String!]
+}
+type Twitter{
+    Users:[String!]
+    twitterId:String!
+    twitterName:String!
+    twitterPic:String!
+}
+type Youtube {
+    Users:[String!]
+    channelId:String!
+    channelPicture:String!
+    channelTitle:String!
+    reachedMessages:[String!]
+}
