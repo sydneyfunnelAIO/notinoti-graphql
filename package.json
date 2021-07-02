@@ -48,7 +48,8 @@
     "sitemap-to-array": "^6.0.0",
     "stripe": "^8.114.0",
     "twit": "^2.2.11",
-    "uuidv4": "^6.1.1"
+    "uuidv4": "^6.1.1",
+    "graphql" : "15.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
