@@ -151,11 +151,47 @@ const registerToTwitter = async (twitterId,Twitter) => {
   });
   return {success:true}
 };
+const registerToTwitters = async (twitterId,Twitter) => {
+  let stream = await T.stream("statuses/filter", { follow: twitterId });
+  stream.on("tweet", async(tweet) => {
+    let name = tweet.user.name;
+    let screenName = tweet.user.screen_name.toLowerCase();
+    let tweetId = tweet.id_str;
+    let text = tweet.text;
+    let data = await Twitter.findOne({twitterName:screenName})
+    console.log(screenName+" :" + text)
+    if(data){
+      let tokens = await data.Users.map((user)=> user)
+      console.log(tokens)
+      admin.messaging().sendMulticast({
+        tokens,
+        data: {
+          title: `${screenName} Published New Tweet!`,
+          body: `${text}`,
+          router:tweetId,
+          image: data.twitterImage,
+          tag:"twitter",
+        },
+        android: {
+          priority: "high",
+        },
+        priority: "high",
+        show_in_foreground: true,
+        color: "#16e6b4",
+        sound: "default",
+      });
+
+    }
+
+  });
+  return {success:true}
+};
 
 module.exports = {
   addTwitchRequest,
   registerToTwitch,
   registerToYoutube,
   addTwitterRequest,
-  registerToTwitter
+  registerToTwitter,
+  registerToTwitters
 };

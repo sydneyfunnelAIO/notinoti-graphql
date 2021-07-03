@@ -4,6 +4,8 @@ const admin = require("firebase-admin");
 const { YOUTUBE } = require("../Config");
 const parseString = require("xml2js").parseString;
 const  YT  = require("../models/Youtube")
+const Twitter = require("../models/Twitter")
+const { registerToTwitters } = require("../helpers/Posts")
 
 const pubsubhubbub = require("pubsubhubbub");
 const client = pubsubhubbub.createServer({
@@ -12,7 +14,14 @@ const client = pubsubhubbub.createServer({
 });
 
 router.use("/pubsubhubbub", client.listener());
-
+const startTwitter = async()=>{
+ let data = await Twitter.find().exec()
+ let ids = data.map((data)=> {
+   return data.twitterId
+ })
+ registerToTwitters(ids, Twitter)
+}
+startTwitter()
 router.get("/refreshYoutube", (req, res) => {
   YT.find().exec((err, channels) => {
     channels.forEach((doc) => {
