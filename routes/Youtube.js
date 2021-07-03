@@ -3,7 +3,7 @@ const router = express.Router();
 const admin = require("firebase-admin");
 const { YOUTUBE } = require("../Config");
 const parseString = require("xml2js").parseString;
-const { YT } = require("../models/Youtube")
+const  YT  = require("../models/Youtube")
 
 const pubsubhubbub = require("pubsubhubbub");
 const client = pubsubhubbub.createServer({
